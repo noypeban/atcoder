@@ -2,21 +2,26 @@
 
 atcoderを解くためのonlne環境レポジトリ
 
+https://kenkoooo.com/atcoder/#/table/
+
 ## replitを使う
 
 https://replit.com/@noypeban/atcoder
 
 ## 操作の流れ
 
+### pathを通し、loginし、alias登録
+
+```sh
+# replitログイン後毎回source必要
+source prepare.sh
+```
+
 ### 問題をダウンロード
 
 ```sh
-# local installしたnodeモジュールにpathを通す
-source addpath.sh
 # コンペIDを指定する
 acc new abc271
-# login/passの入力
-# 解く問題を選択
 # => コンペID/問題番号のディレクトリ階層ができる
 ```
 
@@ -27,38 +32,29 @@ main.pyファイルを作成、解く
 ### テスト
 
 ```sh
-oj t -c "python3 main.py" -d ./tests/
+test
 ```
 
 ### 提出
 
 ```sh
-# ojでログインしないといけない時
-oj login https://atcoder.jp
-# submit
-abc submit main.py
+submit
 ```
-
-`vscode.dev`ではunittestをpythonで実行する事ができなかった。  
-replitではunittestのコピペでは成功。
-
-- replitではNixというパッケージマネージャーで管理している様子
-- Packageの所から`online-judge-tools`を検索、＋ボタンでinstallできた
-- 最初は`replit no module named poetry`と出たけど、replの削除、再作成でうまく行った
-
 ## install
 
 1. replit左ペインのパッケージで`online-judge-tools`をインストール
 2. Shellで`node`とタイプし、サジェストからnode.jsをインストール
 3. Shellで`npm install atcoder-cli`とタイプし、accをインストール
+4. `${PWD}/node_modules/.bin`にpathを通す
 
-ここまで行ったけど、accにパスが通ってない
+- 2で`replit no module named poetry`エラーが出たが、replの削除、再作成で先に進めた
+- 3でほんとはグローバルインストールしたかったけど書き込み権がないと言われローカルにした
 
-## online-judge-toolsの設定、使い方
+## acc設定
 
-## TODO
-
-- [ ] atcoder-cliが使えないか？
-- [x] online-judge-toolsが使えないか？
-- [ ] vscode.dev環境でコードを実行する方法は？
-- [x] 無理なら、replitなど他のonline実行環境で環境構築は可能か？
+```sh
+# 問題を選択せず全部ダウンロードする
+acc config default-task-choice all 
+# 検証用ディレクトリ名をojと同じにする
+acc config default-test-dirname-format test
+```
